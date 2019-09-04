@@ -1,0 +1,7 @@
+src.demo1 :
+        LambdaDemo 用 lambda 的 6 中表达方式(合法方式), 及一句话总结
+
+        Function  函数式接口 : 定义, jdk8 四大函数式接口. 其中两个Demo
+
+src.demo2 :  Employee / EmployeeData 没实现具体功能, 仅测试方法引用语法.
+        MethodReferences 方法引用.
