@@ -61,16 +61,26 @@ public class MethodReference {
         public void test3(){
             Comparator<Integer> com = (t1, t2) -> Integer.compare(t1, t2);
             System.out.println(com.compare(12,  13));
-
             System.out.println("******************");
 
             Comparator<Integer> com1 = Integer::compare; //不是靠逻辑推 , 熟悉熟悉就好
             System.out.println(com1.compare(12,13));
+            System.out.println("******************************");
+
+            Comparator<String> com2 = (s1,s2) -> s1.compareTo(s2);
+            System.out.println(com2.compare("abc", "abd"));
+            System.out.println("*********************");
+
+            Comparator<String> com3 = String::compareTo;
+            System.out.println(com3.compare("abd", "admin"));
         }
 
     /**
      *               Function 中的 R apply(T t)
      *             Math 中的 Long round(Double d)
+     *
+     *             BiPredicate boolean test (T t1,T t2):
+     *             String boolean t1.equals(t2);
      */
     public void test4(){
              Function<Double, Long> func = new Function<Double, Long>(){
@@ -95,16 +105,48 @@ public class MethodReference {
          }
         /*
             情况 三  类::实例方法名
+            Function R apply(T t)
+            Employee String getName();
             Comparator 中的 int comapre(T t1 , T t2)
          */
+        @Test
          public void test5(){
+
+             Employee employee = new Employee(1001,"Remy", 24, 8000);
+
+             Function<Employee,String> func1 = e -> e.getName(); //lambda 表达式方式
+             System.out.println(func1.apply(employee));
+             System.out.println("************");
+
+             Function<Employee, String> func2 = Employee::getName; //方法引用方式
+             System.out.println(func2.apply(employee));
+
+
 
             Supplier<Employee> sup = () -> new Employee();
 
-            //构造器引用方式
-            Supplier<Employee> sup2=Employee::new;//使用无参构造器
+            /*
+                构造器引用方式
+                Supplier T get()
+                Employee()  调用空参构造器
+             */
+             System.out.println("构造器引用方式");
+            //原来写法:
+            Supplier<Employee> sup3 = new Supplier<Employee>() {
+                @Override
+                public Employee get() {
+                    return new Employee();
+                }
+           };
+            Supplier<Employee> sup4 = () -> new Employee(); // lambda 写法
+            System.out.println(sup4.get());
+            System.out.println("***************");
+
+            Supplier<Employee> sup2 = Employee::new;//使用无参构造器
             Employee emp=sup2.get();
             System.out.println(emp);
+             System.out.println("************");
+
 
             Function<Integer,Employee> fun2=(x)->new Employee(x);
             Employee emp2=fun2.apply(101);
@@ -113,7 +155,10 @@ public class MethodReference {
             BiFunction<String,Integer,Employee> bf=Employee::new;
          }
 
-        //数组引用
+    /**
+
+     */
+    //数组引用
         @Test
         public void test6(){
             Function<Integer,String[]> fun=(x)->new String[x];

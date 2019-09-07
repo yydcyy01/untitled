@@ -16,6 +16,9 @@ public class Employee {
     public Employee(Integer x) {
     }
 
+    public Employee(int i, String remy, int i1, int i2) {
+    }
+
     public String getName() {
         return "";
     }
